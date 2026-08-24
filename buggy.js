@@ -25,20 +25,15 @@ function createCounters() {
   return counters;
 }
 
-// Bug 4: missing await, function returns a pending Promise instead of the value
+// FIXED: missing await (was returning a pending Promise, now awaits the resolved JSON)
 async function fetchData(url) {
-  const result = fetch(url).then(res => res.json());
+  const result = await fetch(url).then(res => res.json());
   return result;
 }
 
-// Bug 5: mutating an array while iterating over it with forEach
+// FIXED: mutating array during forEach (was using splice mid-iteration, now uses filter)
 function removeEvens(arr) {
-  arr.forEach((num, index) => {
-    if (num % 2 === 0) {
-      arr.splice(index, 1);
-    }
-  });
-  return arr;
+  return arr.filter(num => num % 2 !== 0);
 }
 
 // Bug 6: no check for division by zero

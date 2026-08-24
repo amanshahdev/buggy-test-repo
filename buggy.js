@@ -1,9 +1,9 @@
 // buggy.js - intentionally buggy JS file for testing purposes
 
-// Bug 1: off-by-one error in loop (skips last element / goes out of bounds depending on use)
+// FIXED: off-by-one error in loop (was `i <= arr.length`, now correctly `i < arr.length`)
 function sumArray(arr) {
   let total = 0;
-  for (let i = 0; i <= arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     total += arr[i];
   }
   return total;
@@ -14,10 +14,10 @@ function isEqual(a, b) {
   return a == b;
 }
 
-// Bug 3: classic var-in-loop closure bug
+// FIXED: classic var-in-loop closure bug (was `var i`, now `let i` so each closure gets its own binding)
 function createCounters() {
   var counters = [];
-  for (var i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     counters.push(function () {
       return i;
     });
